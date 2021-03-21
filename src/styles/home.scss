@@ -1,0 +1,409 @@
+@-webkit-keyframes rotation {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes re-rotation {
+    from {
+        -webkit-transform: rotate(360deg);
+    }
+    to {
+        -webkit-transform: rotate(0deg);
+    }
+}
+
+@keyframes shake {
+    10%,
+    90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(4px, 0, 0);
+    }
+}
+
+
+body {
+    overflow-x: hidden;
+    // overflow: hidden;
+    background: #ffd139;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    margin: 0;
+    color: transparent;
+    text-shadow: 0 0 0 black;
+}
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+
+}
+a {
+    color: #eee;
+}
+.id1 {
+    margin-top: 0;
+    left: 5%;
+    -webkit-animation: rotation 2s infinite linear;
+    .img {
+        background: url('https://posters.movieposterdb.com/15_05/1995/114709/s_114709_7fcfc0bf.jpg') left top no-repeat;
+    }
+}
+.item.id1 {
+    width: 100px;
+    height: 100px;
+}
+.id2 {
+    margin-top: 6%;
+    left: 15%;
+    -webkit-animation: re-rotation 2s infinite linear;
+    .img {
+        background: url('https://posters.movieposterdb.com/09_01/1965/59742/s_59742_3f410011.jpg') left top no-repeat;
+    }
+}
+.item.id2 {
+    width: 250px;
+    height: 250px;
+}
+.id3 {
+    margin-top: 23%;
+    left: 8%;
+    -webkit-animation: rotation 2s infinite linear;
+    .img {
+        background: url('https://posters.movieposterdb.com/15_02/1996/117008/s_117008_f65424a9.jpg') left top no-repeat;
+    }
+}
+.item.id3 {
+    width: 200px;
+    height: 200px;
+}
+.id4 {
+    margin-top: 0;
+    left: 68%;
+    -webkit-animation: re-rotation 2s infinite linear;
+    .img {
+        background: url('https://posters.movieposterdb.com/08_12/2001/212720/s_212720_edb01c9f.jpg') left top no-repeat;
+    }
+}
+.item.id4 {
+    width: 150px;
+    height: 150px;
+}
+.id5 {
+    margin-top: 20%;
+    left: 63%;
+    -webkit-animation: rotation 2s infinite linear;
+    .img {
+        background: url('https://posters.movieposterdb.com/13_02/2001/241527/s_241527_da927a3d.jpg') left top no-repeat;
+    }
+}
+.item.id5 {
+    width: 90px;
+    height: 90px;
+}
+.id6 {
+    margin-top: 3%;
+    left: 85%;
+    -webkit-animation: re-rotation 2s infinite linear;
+    .img {
+        background: url('https://posters.movieposterdb.com/13_07/2013/2294629/s_2294629_c256bcb8.jpg') left top no-repeat;
+    }
+}
+.item.id6 {
+    width: 270px;
+    height: 270px;
+}
+.id7 {
+    margin-top: 23%;
+    left: 77%;
+    -webkit-animation: re-rotation 2s infinite linear;
+    .img {
+        background: url('https://posters.movieposterdb.com/07_12/2007/462538/s_462538_1605300c.jpg') left top no-repeat;
+    }
+}
+.item.id7 {
+    width: 200px;
+    height: 200px;
+}
+.id1,
+.id2,
+.id3,
+.id4,
+.id5,
+.id6,
+.id7 {
+    width: 270px;
+    height: 400px;
+    -webkit-animation-duration: 20s;
+}
+.item.id1:hover,
+.item.id2:hover,
+.item.id3:hover,
+.item.id4:hover,
+.item.id5:hover,
+.item.id6:hover,
+.item.id7:hover {
+    width: 270px;
+    height: 400px;
+    -webkit-animation: none;
+    transition-duration: 0.5s;
+}
+.item {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+
+    /*overflow: hidden;*/
+    .img {
+        background-color: #eee;
+        position: absolute;
+        z-index: 100;
+        width: 101%;
+        height: 100%;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -o-border-radius: 50%;
+        border-radius: 50%;
+        -moz-background-clip: padding;
+        -webkit-background-clip: padding-box;
+        background-clip: padding-box;
+
+        border: 5px solid #eee;
+
+        background-size: 100%;
+        background-position: 50% 50%;
+        transform: rotate(10deg);
+        -ms-transform: rotate(10deg); /* IE 9 */
+        -webkit-transform: rotate(10deg); /* Safari and Chrome */
+        -o-transform: rotate(10deg); /* Opera */
+        -moz-transform: rotate(10deg); /* Firefox */
+
+        -webkit-transition: all 500ms ease-in-out; /** Chrome & Safari **/
+        -moz-transition: all 500ms ease-in-out; /** Firefox **/
+        -o-transition: all 500ms ease-in-out; /** Opera **/
+        -ms-transition: all 500ms ease-in-out; /** IE **/
+        transition: all 500ms ease-in-out;
+    }
+
+    /*
+	linear:       the transition will have constant speed from start to end.
+	ease:         the transition will start slowly, then get faster, before ending slowly.
+	ease-in:      the transition will start slowly.
+	ease-out:     the transition will end slowly.
+	ease-in-out:  the transition starts and ends slowly.
+	cubic-bezier: define specific values for your own transition.
+	*/
+    -webkit-transition: all 500ms ease-in-out; /** Chrome & Safari **/
+    -moz-transition: all 500ms ease-in-out; /** Firefox **/
+    -o-transition: all 500ms ease-in-out; /** Opera **/
+    -ms-transition: all 500ms ease-in-out; /** IE **/
+    transition: all 500ms ease-in-out;
+
+    z-index: 10;
+}
+.item:hover .img {
+    background-size: 100%;
+    background-position: 100% 100%;
+    transform: rotate(0);
+    -ms-transform: rotate(0); /* IE 9 */
+    -webkit-transform: rotate(0); /* Safari and Chrome */
+    -o-transform: rotate(0); /* Opera */
+    -moz-transform: rotate(0); /* Firefox */
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -o-border-radius: 0;
+    border-radius: 0;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    position: absolute;
+    z-index: 100;
+}
+.item:hover {
+    z-index: 100;
+}
+
+.item .info {
+    width: 300px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    color: #eee;
+    font-family: Helvetica, Verdana, Arial, sans-serif;
+    font-size: 12px;
+
+    /*display: none; */
+
+    -webkit-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    transform-origin: 0 0;
+    transform: rotate(90deg);
+    -ms-transform: rotate(90deg); /* IE 9 */
+    -webkit-transform: rotate(90deg); /* Safari and Chrome */
+    -o-transform: rotate(90deg); /* Opera */
+    -moz-transform: rotate(90deg); /* Firefox */
+
+    position: absolute;
+    top: 0;
+    right: -310px;
+    z-index: 1;
+    opacity: 0;
+
+    -webkit-transition: all 500ms ease-in-out; /** Chrome & Safari **/
+    -moz-transition: all 500ms ease-in-out; /** Firefox **/
+    -o-transition: all 500ms ease-in-out; /** Opera **/
+    -ms-transition: all 500ms ease-in-out; /** IE **/
+    transition: all 500ms ease-in-out;
+}
+.item .info.left {
+    top: 0;
+    left: -310px;
+    -webkit-transform-origin: 100% 0;
+    -moz-transform-origin: 100% 0;
+    -o-transform-origin: 100% 0;
+    transform-origin: 100% 0;
+    transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg); /* IE 9 */
+    -webkit-transform: rotate(-90deg); /* Safari and Chrome */
+    -o-transform: rotate(-90deg); /* Opera */
+    -moz-transform: rotate(-90deg); /* Firefox */
+}
+.item:hover .info {
+    display: block;
+    transform: rotate(0);
+    -ms-transform: rotate(0); /* IE 9 */
+    -webkit-transform: rotate(0); /* Safari and Chrome */
+    -o-transform: rotate(0); /* Opera */
+    -moz-transform: rotate(0); /* Firefox */
+    opacity: 1;
+    position: absolute;
+    z-index: 1;
+
+    transition-delay: 500ms;
+    -moz-transition-delay: 500ms; /* Firefox 4 */
+    -webkit-transition-delay: 500ms; /* Safari and Chrome */
+    -o-transition-delay: 500ms; /* Opera */
+
+}
+
+.ball {
+    position: absolute;
+    border-radius: 100%;
+    opacity: 0.4;
+    z-index: -1;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Rubik:700 &display=swap');
+
+
+$text: #382b22;
+$light-orange: #FFBF00;
+$orange: orange;
+$darkorange: darkorange;
+$orange-border: #FD6A02;
+$orange-shadow: #EF820D;
+
+* {
+    box-sizing: border-box;
+    &::before,
+    &::after {
+        box-sizing: border-box;
+    }
+}
+
+button {
+    margin-top: 3%;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    display: block;
+    cursor: pointer;
+    outline: none;
+    border: 0;
+    vertical-align: middle;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-family: 'Rubik', sans-serif;
+    &.learn-more {
+        font-weight: 600;
+        color: $text;
+        text-transform: uppercase;
+        padding: 1em 2em;
+        background: $light-orange;
+        border: 2px solid $orange-border;
+        border-radius: 0.75em;
+        transform-style: preserve-3d;
+        transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), background 150ms cubic-bezier(0, 0, 0.58, 1);
+        &::before {
+            position: absolute;
+            content: '';
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: $darkorange;
+            border-radius: inherit;
+            box-shadow: 0 0 0 2px $orange-border, 0 0.5em 0 0 $orange-shadow;
+            transform: translate3d(0, 0.75em, -1em);
+            transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), box-shadow 150ms cubic-bezier(0, 0, 0.58, 1);
+        }
+        &:hover {
+            background: $orange;
+            transform: translate(0, 0.25em);
+            &::before {
+                box-shadow: 0 0 0 2px $orange-border, 0 0.3em 0 0 $orange-shadow;
+                transform: translate3d(0, 0.5em, -1em);
+            }
+        }
+        &:active {
+            background: $orange;
+            transform: translate(0em, 0.75em);
+            &::before {
+                box-shadow: 0 0 0 2px $orange-border, 0 0 $orange-shadow;
+                transform: translate3d(0, 0, -1em);
+            }
+        }
+    }
+}
+
+.home-img {
+    top: 15%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    color: transparent;
+    text-shadow: 0 0 0 black;
+}
+
+.footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 20px 0;
+    text-align: center;
+    background: #9ACD32;
+    box-shadow: 2px 0 5px 3px gray;
+
+}
