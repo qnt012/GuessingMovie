@@ -1,39 +1,13 @@
 <template>
-  <div id="app">
-    <app-header></app-header>
-    <app-ball></app-ball>
-    <img class="home-img" src="./assets/home.png" />
-    <button class="learn-more">Start Game</button>
-    <app-foot></app-foot>
+  <div>
+    <router-view :key="$route.fullPath"></router-view>
   </div>
 </template>
 
 <script>
-import Foot from "./components/Foot.vue";
-import Header from "./components/Header.vue";
-import Ball from "./components/Ball.vue";
-
+import router from "./router.js";
 export default {
-  name: "App",
-  data: function () {
-    return {};
-  },
-  computed: {},
-  methods: {},
-  async mounted() {},
-  watch: {},
-  components: {
-    appHeader: Header,
-    appBall: Ball,
-    appFoot: Foot
-  },
+  router,
+  methods: {}
 };
 </script>
-
-<style lang="scss">
-  @import "/styles/global.scss";
-  @import "/styles/home.scss";
-</style>
-
-
-
