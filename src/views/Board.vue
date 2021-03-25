@@ -1,7 +1,9 @@
 <template>
   <div id="board">
     <app-header></app-header>
-    <app-canvas></app-canvas>
+    <center>
+      <app-canvas></app-canvas>
+    </center>
     <app-footer></app-footer>
   </div>
 </template>

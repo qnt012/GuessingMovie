@@ -3,7 +3,7 @@
     <app-header></app-header>
     <app-ball></app-ball>
     <img class="home-img" src="../assets/home.png"/>
-    <button class="learn-more" @click="moveTo('/board')">Start Game</button>
+    <button class="learn-more" @click="moveTo('board')">Start Game</button>
     <app-footer></app-footer>
   </div>
 </template>
@@ -23,11 +23,10 @@ export default {
   computed: {},
   methods: {
     moveTo(page) {
-      var router = this.$router;
-      router.push(page);
+      location.href = "http://localhost:8080/" + page
     }
   },
-  async mounted() {},
+  mounted() {},
   watch: {},
   components: {
     appHeader: Header,

@@ -51,11 +51,13 @@ export default {
   props: {
     width: {
       type: Number,
-      default: screen.width - 100
+      default: 800
+      //default: screen.width - 100
     },
     height: {
       type: Number,
-      default: screen.height - Number(screen.height) / 100 * 15
+      default: 700
+      //default: screen.height - Number(screen.height) / 100 * 35
     },
     outputName: {
       type: String,
