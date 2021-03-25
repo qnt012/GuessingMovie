@@ -51,7 +51,7 @@ export default {
   props: {
     width: {
       type: Number,
-      default: 800
+      default: 784
       //default: screen.width - 100
     },
     height: {
