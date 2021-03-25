@@ -1,0 +1,120 @@
+.slider-div {
+  position: absolute;
+  left: 32%;
+  z-index: 10000;
+  top: 20%;
+  width: 550px;
+  height: 60px;
+  background: #eee;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: 10px auto;
+  box-shadow: -1px 1px 9px 1px grey;
+}
+.value {
+  width: 30px;
+  height: 25px;
+  margin-top: 13px;
+  margin-left: 6px;
+  font-weight: 600;
+  font-size: large;
+  color: #e9ffee;
+  background: #656464;
+  border-radius: 50%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  padding-top: 5px;
+}
+.board-wrapper {
+  display: grid;
+  position: relative;
+}
+.draw-area canvas {
+  position: absolute;
+  left: 20px;
+  top: 0;
+  border: 2px solid #c8c8c8;
+  border-radius: 10px 0 10px 10px;
+}
+.tools {
+  margin: 0;
+  padding: 0;
+}
+#canvas {
+  background-color: #f9f9f9;
+  z-index: 0;
+}
+#cursor {
+  z-index: 1;
+  pointer-events: none;
+}
+.active {
+  background-color: rgb(207, 205, 205) !important;
+}
+.tools li {
+  cursor: pointer;
+  padding: 0px 4px;
+  background-color: #f2f2f2;
+  border-top: 2px solid #abaaaa;
+  border-left: 2px solid #abaaaa;
+  border-right: 2px solid #abaaaa;
+  z-index: 5;
+}
+.tools li:last-child {
+  border-bottom: 2px solid #abaaaa;
+  border-bottom-right-radius: 5px;
+}
+.tools li:first-child {
+  border-top-right-radius: 5px;
+}
+img.svg-size {
+  height: auto;
+  width: 20px;
+  padding-left: 20px;
+}
+.slidecontainer {
+  width: 100%;
+}
+.slider {
+  margin: 20px 30px;
+  -webkit-appearance: none;
+  width: 90%;
+  height: 18px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+}
+.slider:hover {
+  opacity: 1;
+}
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4caf50;
+  cursor: pointer;
+}
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4caf50;
+  cursor: pointer;
+}
+button.tools-icon-btn {
+  cursor: pointer;
+  background-color: #f2f2f2;
+  border: none;
+  padding: 3px 0px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  outline: none;
+}

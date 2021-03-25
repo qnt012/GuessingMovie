@@ -11,6 +11,11 @@ export default new Router({
             path: '/',
             name: 'app',
             component: () => import("./views/Home.vue")
+        },
+        {
+            path: '/board',
+            name: 'board',
+            component: () => import("./views/Board.vue")
         }
     ]
 })

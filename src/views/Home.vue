@@ -2,30 +2,37 @@
   <div id="app">
     <app-header></app-header>
     <app-ball></app-ball>
-    <img class="home-img" src="../assets/home.png" />
-    <button class="learn-more">Start Game</button>
-    <app-foot></app-foot>
+    <img class="home-img" src="../assets/home.png"/>
+    <button class="learn-more" @click="moveTo('/board')">Start Game</button>
+    <app-footer></app-footer>
   </div>
 </template>
 
 <script>
-import Foot from "../components/Foot.vue";
+import Footer from "../components/Footer.vue";
 import Header from "../components/Header.vue";
 import Ball from "../components/Ball.vue";
+import router from "../router.js";
 
 export default {
+  router,
   name: "App",
   data: function() {
     return {};
   },
   computed: {},
-  methods: {},
+  methods: {
+    moveTo(page) {
+      var router = this.$router;
+      router.push(page);
+    }
+  },
   async mounted() {},
   watch: {},
   components: {
     appHeader: Header,
     appBall: Ball,
-    appFoot: Foot
+    appFooter: Footer
   }
 };
 </script>
