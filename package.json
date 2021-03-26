@@ -16,7 +16,9 @@
     "compass": "^0.1.1",
     "core-js": "^3.6.4",
     "uuid": "^8.0.0",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vue-drawing-board-extend": "^0.1.3",
+    "vue-router": "^3.5.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.3.0",

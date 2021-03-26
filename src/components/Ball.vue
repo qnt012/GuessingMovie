@@ -94,12 +94,14 @@ export default {
     },   
     methods: {      
   },    
-  async mounted() { 
+  mounted() { 
     // Some random colors
     const colors = ["#93b3b7","#eaa18a","#ffcbcb","#ffcc00","#ff9797","#3CC157", "#2AA7FF", "#FCBC0F", "#F85F36"];
 
     const numBalls = 700;
     const balls = [];
+    
+
 
     for (let i = 0; i < numBalls; i++) {
       let ball = document.createElement("div");
