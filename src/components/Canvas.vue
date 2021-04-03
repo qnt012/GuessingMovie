@@ -98,14 +98,14 @@ export default {
       canvasCtx: null,
       cursorCtx: null,
       isDrawing: false,
-      brushSize: 5,
+      brushSize: 20, // 붓 사이즈
       lastX: 0,
       lastY: 0,
       points: [],
       tools: [
         {
           name: "Pencil",
-          color: "#000000",
+          color: "red", // 붓 색상 바꾸는거
         },
         {
           name: "Eraser",
@@ -118,7 +118,7 @@ export default {
   computed: {
     boardStyle() {
       return {
-        color: "red",
+        color: "black",
         height: `${this.height}px`,
         width: `${this.width + 30}px`,
         "grid-template-columns": `${this.width}px 50px`,
@@ -134,10 +134,16 @@ export default {
     this.bindEvents();
   },
   methods: {
-    async predict() {
-      var c = document.getElementById("canvas");
-      const test = await this.model.predict(this.preprocessCanvas(c)).data();
-      console.log(test);
+    async predict() { // 시험삼아 건드려본거 그대로 남아있음
+      var c = this.canvasCtx;
+      console.log(c);
+      var c1 = c.getImageData(0,0,784,700);
+      console.log(c1);
+      var c2 = this.preprocessCanvas(c1);
+      console.log(c2);
+      console.log(c2.data());
+      var c3 = await this.model.predict(c2).data();
+      console.log(c3);
     },
     preprocessCanvas(canvas) {
       let tensor = tf
