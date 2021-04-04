@@ -1,43 +1,13 @@
 <template>
   <div>
-    <div v-show="showSlider" class="slider-div">
-      <div class="value">
-        {{ brushSize }}
-      </div>
-      <input
-        type="range"
-        min="1"
-        max="100"
-        v-model="brushSize"
-        class="slider"
-        id="myRange"
-      />
-    </div>
     <div class="board-wrapper" :style="boardStyle">
       <div class="draw-area">
-        <canvas
-          id="canvas"
-          ref="canvas"
-          :width="width"
-          :height="height"
-        ></canvas>
-        <canvas
-          id="cursor"
-          ref="cursor"
-          :width="width"
-          :height="height"
-        ></canvas>
+        <canvas id="canvas" ref="canvas" :width="width" :height="height"></canvas>
+        <canvas id="cursor" ref="cursor" :width="width" :height="height"></canvas>
       </div>
       <ul class="tools">
-        <li
-          id="tool-pencil"
-          :class="{ active: selectedToolIdx === 0 }"
-          @click="changeTool(0)"
-        >
-          <button
-            class="tools-icon-btn"
-            :class="{ active: selectedToolIdx === 0 }"
-          >
+        <li id="tool-pencil" :class="{ active: selectedToolIdx === 0 }" @click="changeTool(0)">
+          <button class="tools-icon-btn" :class="{ active: selectedToolIdx === 0 }">
             <i class="fas fa-pencil-alt"></i>
           </button>
         </li>
@@ -63,7 +33,7 @@
         </li>
         <li id="tool-download" @click="predict">
           <button class="tools-icon-btn">
-            <i class="fas fa-download"></i>
+            P
           </button>
         </li>
       </ul>
@@ -78,41 +48,40 @@ export default {
   props: {
     width: {
       type: Number,
-      default: 300,
+      default: 784
       //default: screen.width - 100
     },
     height: {
       type: Number,
-      default: 300,
+      default: 700
       //default: screen.height - Number(screen.height) / 100 * 35
     },
     outputName: {
       type: String,
-      default: "canvas",
-    },
+      default: "canvas"
+    }
   },
   data() {
     return {
       model: null,
-      showSlider: false,
       canvasCtx: null,
       cursorCtx: null,
       isDrawing: false,
-      brushSize: 15,
+      brushSize: 40,
       lastX: 0,
       lastY: 0,
       points: [],
       tools: [
         {
           name: "Pencil",
-          color: "black",
+          color: "black"
         },
         {
-          name: "Eraser",
-        },
+          name: "Eraser"
+        }
       ],
       selectedToolIdx: 0,
-      undoPoints: [],
+      undoPoints: []
     };
   },
   computed: {
@@ -121,9 +90,9 @@ export default {
         color: "black",
         height: `${this.height}px`,
         width: `${this.width + 30}px`,
-        "grid-template-columns": `${this.width}px 50px`,
+        "grid-template-columns": `${this.width}px 50px`
       };
-    },
+    }
   },
   async mounted() {
     this.model = await tf.loadModel(
@@ -135,22 +104,11 @@ export default {
   },
   methods: {
     async predict() {
-      var c1 = document.getElementById('canvas');
-      console.log(c1);
-      var ctx = c1.getContext('2d');
-      const imagedata = ctx.getImageData(0,0,300,300);
-      const data = imagedata.data;
-      for (var i = 0; i< data.length; i+=4){
-        data[i] = 255 - data[i];
-        data[i+1] = 255 - data[i+1];
-        data[i+2] = 255 - data[i+2];
-      }
-      var c2 = this.preprocessCanvas(imagedata);
-      console.log(c2);
-      console.log(c2.data());
-      var c3 = await this.model.predict(c2).data();
-      console.log(c3);
-
+      var c = this.preprocessCanvas(document.getElementById("canvas"));
+      console.log(c.data());
+      var p = await this.model.predict(c).data();
+      var max = Math.max.apply(null, p);
+      console.log(p.indexOf(max), max);
     },
     preprocessCanvas(canvas) {
       let tensor = tf
@@ -170,7 +128,7 @@ export default {
       this.cursorCtx = this.$refs.cursor.getContext("2d");
     },
     bindEvents() {
-      this.$refs.canvas.addEventListener("mousedown", (event) => {
+      this.$refs.canvas.addEventListener("mousedown", event => {
         this.isDrawing = true;
         [this.lastX, this.lastY] = [event.offsetX, event.offsetY];
       });
@@ -196,7 +154,7 @@ export default {
         lastY: this.lastY,
         brushSize: this.brushSize,
         selectedToolIdx: this.selectedToolIdx,
-        color: this.tools[this.selectedToolIdx].color,
+        color: this.tools[this.selectedToolIdx].color
       };
       this.points.push(point);
       this.redrawAll();
@@ -218,8 +176,8 @@ export default {
     redrawAll() {
       this.canvasCtx.clearRect(0, 0, this.width, this.height);
       this.canvasCtx.fillStyle = "#FFFFFF";
-      this.canvasCtx.fillRect(0,0,784,700);
-      this.points.forEach((point) => {
+      this.canvasCtx.fillRect(0, 0, 784, 700);
+      this.points.forEach(point => {
         if (this.tools[point.selectedToolIdx].name === "Eraser") {
           this.canvasCtx.globalCompositeOperation = "destination-out";
         } else {
@@ -250,15 +208,6 @@ export default {
         this.cursorCtx.clearRect(0, 0, this.width, this.height);
       }, 10);
     },
-    showColorPalette() {
-      const colorPalette = document.createElement("input");
-      colorPalette.addEventListener("change", (event) => {
-        this.tools[0].color = event.target.value;
-      });
-      colorPalette.type = "color";
-      colorPalette.value = this.tools[0].color;
-      colorPalette.click();
-    },
     download() {
       const link = document.createElement("a");
       link.download = `${this.outputName}.png`;
@@ -270,7 +219,7 @@ export default {
       this.undoPoints = [];
       this.changeTool(0);
       this.canvasCtx.clearRect(0, 0, this.width, this.height);
-    },
-  },
+    }
+  }
 };
 </script>
