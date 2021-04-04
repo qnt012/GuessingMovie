@@ -78,12 +78,12 @@ export default {
   props: {
     width: {
       type: Number,
-      default: 784,
+      default: 300,
       //default: screen.width - 100
     },
     height: {
       type: Number,
-      default: 700,
+      default: 300,
       //default: screen.height - Number(screen.height) / 100 * 35
     },
     outputName: {
@@ -98,14 +98,14 @@ export default {
       canvasCtx: null,
       cursorCtx: null,
       isDrawing: false,
-      brushSize: 20, // 붓 사이즈
+      brushSize: 15,
       lastX: 0,
       lastY: 0,
       points: [],
       tools: [
         {
           name: "Pencil",
-          color: "red", // 붓 색상 바꾸는거
+          color: "black",
         },
         {
           name: "Eraser",
@@ -134,16 +134,23 @@ export default {
     this.bindEvents();
   },
   methods: {
-    async predict() { // 시험삼아 건드려본거 그대로 남아있음
-      var c = this.canvasCtx;
-      console.log(c);
-      var c1 = c.getImageData(0,0,784,700);
+    async predict() {
+      var c1 = document.getElementById('canvas');
       console.log(c1);
-      var c2 = this.preprocessCanvas(c1);
+      var ctx = c1.getContext('2d');
+      const imagedata = ctx.getImageData(0,0,300,300);
+      const data = imagedata.data;
+      for (var i = 0; i< data.length; i+=4){
+        data[i] = 255 - data[i];
+        data[i+1] = 255 - data[i+1];
+        data[i+2] = 255 - data[i+2];
+      }
+      var c2 = this.preprocessCanvas(imagedata);
       console.log(c2);
       console.log(c2.data());
       var c3 = await this.model.predict(c2).data();
       console.log(c3);
+
     },
     preprocessCanvas(canvas) {
       let tensor = tf
@@ -210,6 +217,8 @@ export default {
     },
     redrawAll() {
       this.canvasCtx.clearRect(0, 0, this.width, this.height);
+      this.canvasCtx.fillStyle = "#FFFFFF";
+      this.canvasCtx.fillRect(0,0,784,700);
       this.points.forEach((point) => {
         if (this.tools[point.selectedToolIdx].name === "Eraser") {
           this.canvasCtx.globalCompositeOperation = "destination-out";
