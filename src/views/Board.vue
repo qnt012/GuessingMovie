@@ -13,7 +13,9 @@ import Canvas from "../components/Canvas.vue";
 
 export default {
   data: function() {
-    return {};
+    return {
+      words: []
+    };
   },
   computed: {},
   methods: {},
