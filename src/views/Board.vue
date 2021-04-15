@@ -4,14 +4,12 @@
     <center>
       <app-canvas></app-canvas>
     </center>
-    <app-footer></app-footer>
   </div>
 </template>
 
 <script>
 import Header from "../components/Header.vue";
 import Canvas from "../components/Canvas.vue";
-import Footer from "../components/Footer.vue";
 
 export default {
   data: function() {
@@ -21,8 +19,7 @@ export default {
   methods: {},
   components: {
     appHeader: Header,
-    appCanvas: Canvas,
-    appFooter: Footer
+    appCanvas: Canvas
   }
 };
 </script>

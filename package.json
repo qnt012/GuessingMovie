@@ -1,5 +1,5 @@
 {
-  "name": "vue-sticky-notes",
+  "name": "vue-guessing-movie",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@teachablemachine/image": "^0.8.4",
-    "@tensorflow/tfjs": "^0.15.3",
+    "@tensorflow/tfjs": "0.15.3",
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.13.0",
     "bulma": "^0.8.2",

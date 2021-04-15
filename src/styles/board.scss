@@ -37,12 +37,17 @@
     background-color: #9ACD32;
   }
 }
-.tools li:last-child {
+.tools li:nth-child(6) {
   border-bottom: 2px solid #abaaaa;
   border-bottom-right-radius: 5px;
 }
 .tools li:first-child {
   border-top-right-radius: 5px;
+}
+#tool-add {
+  margin-top: 350px;
+  border-bottom: 2px solid #abaaaa;
+  border-radius: 5px;
 }
 button.tools-icon-btn {
   cursor: pointer;
