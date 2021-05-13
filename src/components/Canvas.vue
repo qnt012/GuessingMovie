@@ -76,7 +76,7 @@ export default {
       tools: [
         {
           name: "Pencil",
-          color: "white"
+          color: "black"
         },
         {
           name: "Eraser"
@@ -108,7 +108,14 @@ export default {
   methods: {
     async predict() {
       this.p = true;
-      var c = this.preprocessCanvas(document.getElementById("canvas"));
+      var src = this.canvasCtx.getImageData(0,0,700,700);
+      var data = src.data;
+      for (var i = 0; i< data.length; i+=4){
+        data[i] = 255 - data[i];
+        data[i+1] = 255 - data[i+1];
+        data[i+2] = 255 - data[i+2];
+      }
+      var c = this.preprocessCanvas(src);
       console.log(c.data());
       var p = await this.model.predict(c).data();
       console.log(p);
@@ -182,7 +189,7 @@ export default {
     },
     redrawAll() {
       this.canvasCtx.clearRect(0, 0, this.width, this.height);
-      this.canvasCtx.fillStyle = "black";
+      this.canvasCtx.fillStyle = "white";
       this.canvasCtx.fillRect(0, 0, 700, 700);
       this.points.forEach(point => {
         if (this.tools[point.selectedToolIdx].name === "Eraser") {
