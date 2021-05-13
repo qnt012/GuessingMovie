@@ -1,7 +1,6 @@
 html {
     box-sizing: border-box;
 }
-
 *,
 *:before,
 *:after {
@@ -20,14 +19,18 @@ body {
     font-size: 15px;
 }
 
+.empty {
+    margin-bottom: 95px;
+}
 
 .header {
+    font-family: "Comic Sans MS";
     display: flex;
     align-items: center;
     // justify-content: center;
-    background: #9ACD32;
+    background: #ffd139;
     color: #000;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
     box-shadow: 2px 2px 5px 2px gray;
     & p {
         font-size:30px;
@@ -59,7 +62,7 @@ body {
     width: 100%;
     padding: 20px 0;
     text-align: center;
-    background: #9ACD32;
+    background: #ffd139;
     box-shadow: 2px 0 5px 3px gray;
 
 }

@@ -6,11 +6,6 @@
         <canvas id="cursor" ref="cursor" :width="width" :height="height"></canvas>
       </div>
       <ul class="tools">
-        <li id="tool-pencil" :class="{ active: selectedToolIdx === 0 }" @click="changeTool(0)">
-          <button class="tools-icon-btn" :class="{ active: selectedToolIdx === 0 }">
-            <i class="fas fa-pencil-alt"></i>
-          </button>
-        </li>
         <li id="tool-erase" @click="eraseALl()">
           <button class="tools-icon-btn">
             <i class="fas fa-eraser"></i>
