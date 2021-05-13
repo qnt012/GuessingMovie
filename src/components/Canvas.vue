@@ -1,16 +1,7 @@
 <template>
   <div>
-    <div v-show="showSlider" class="slider-div">
-      <div class="value">
-        {{brushSize}}
-      </div>
-      <input type="range" min="1" max="100" v-model="brushSize" class="slider" id="myRange">
-    </div>
-    <div
-    class="board-wrapper"
-    :style="boardStyle">
-      <div
-      class="draw-area">
+    <div class="board-wrapper" :style="boardStyle">
+      <div class="draw-area">
         <canvas id="canvas" ref="canvas" :width="width" :height="height"></canvas>
         <canvas id="cursor" ref="cursor" :width="width" :height="height"></canvas>
       </div>
@@ -20,17 +11,17 @@
             <i class="fas fa-pencil-alt"></i>
           </button>
         </li>
-        <li id="tool-download" @click="eraseALl()">
+        <li id="tool-erase" @click="eraseALl()">
           <button class="tools-icon-btn">
             <i class="fas fa-eraser"></i>
           </button>
         </li>
-        <li id="tool-download" @click="undoDraw()">
+        <li id="tool-undo" @click="undoDraw()">
           <button class="tools-icon-btn">
             <i class="fas fa-undo-alt"></i>
           </button>
         </li>
-        <li id="tool-download" @click="redoDraw()">
+        <li id="tool-redo" @click="redoDraw()">
           <button class="tools-icon-btn" :disabled="!undoPoints.length">
             <i class="fas fa-redo-alt"></i>
           </button>
@@ -40,18 +31,29 @@
             <i class="fas fa-download"></i>
           </button>
         </li>
+        <li id="tool-predict" @click="predict">
+          <button class="tools-icon-btn">
+            P
+          </button>
+        </li>
+        <li id="tool-add" v-if="p" @click="addWord">
+          <button class="tools-icon-btn">
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </li>
       </ul>
     </div>
   </div>
 </template>
 <script>
+import * as tf from "@tensorflow/tfjs";
 /* eslint-disable no-return-assign */
 /* eslint-disable no-restricted-globals */
 export default {
   props: {
     width: {
       type: Number,
-      default: 784
+      default: 700
       //default: screen.width - 100
     },
     height: {
@@ -66,42 +68,71 @@ export default {
   },
   data() {
     return {
-      showSlider: false,
+      class_names: ["aircraft_carrier","airplane","alarm_clock","ambulance","angel","animal_migration","ant","anvil","apple","arm","asparagus","axe","backpack","banana","bandage","barn","baseball","baseball_bat","basket","basketball","bat","bathtub","beach","bear","beard","bed","bee","belt","bench","bicycle","binoculars","bird","birthday_cake","blackberry","blueberry","book","boomerang","bottlecap","bowtie","bracelet","brain","bread","bridge","broccoli","broom","bucket","bulldozer","bus","bush","butterfly","cactus","cake","calculator","calendar","camel","camera","camouflage","campfire","candle","cannon","canoe","car","carrot","castle","cat","ceiling_fan","cello","cell_phone","chair","chandelier","church","circle","clarinet","clock","cloud","coffee_cup","compass","computer","cookie","cooler","couch","cow","crab","crayon","crocodile","crown","cruise_ship","cup","diamond","dishwasher","diving_board","dog","dolphin","donut","door","dragon","dresser","drill","drums","duck","dumbbell","ear","elbow","elephant","envelope","eraser","eye","eyeglasses","face","fan","feather","fence","finger","fireplace","firetruck","fire_hydrant","fish","flamingo","flashlight","flip_flops","floor_lamp","flower","flying_saucer","foot","fork","frog","frying_pan","garden","garden_hose","giraffe","goatee","golf_club","grapes","grass","guitar","hamburger","hammer","hand","harp","hat","headphones","hedgehog","helicopter","helmet","hexagon","hockey_puck","hockey_stick","horse","hospital","hot_air_balloon","hot_dog","hot_tub","hourglass","house","house_plant","hurricane","ice_cream","jacket","jail","kangaroo","key","keyboard","knee","knife","ladder","lantern","laptop","leaf","leg","lighter","lighthouse","lightning","light_bulb","line","lion","lipstick","lobster","lollipop","mailbox","map","marker","matches","megaphone","mermaid","microphone","microwave","monkey","moon","mosquito","motorbike","mountain","mouse","moustache","mouth","mug","mushroom","nail","necklace","nose","ocean","octagon","octopus","onion","oven","owl","paintbrush","paint_can","palm_tree","panda","pants","paper_clip","parachute","parrot","passport","peanut","pear","peas","pencil","penguin","piano","pickup_truck","picture_frame","pig","pillow","pineapple","pizza","pliers","police_car","pond","pool","popsicle","postcard","potato","power_outlet","purse","rabbit","raccoon","radio","rain","rainbow","rake","remote_control","rhinoceros","rifle","river","rollerskates","roller_coaster","sailboat","sandwich","saw","saxophone","school_bus","scissors","scorpion","screwdriver","sea_turtle","see_saw","shark","sheep","shoe","shorts","shovel","sink","skateboard","skull","skyscraper","sleeping_bag","smiley_face","snail","snake","snorkel","snowflake","snowman","soccer_ball","sock","speedboat","spider","spoon","spreadsheet","square","squiggle","squirrel","stairs","star","steak","stereo","stethoscope","stitches","stop_sign","stove","strawberry","streetlight","string_bean","submarine","suitcase","sun","swan","sweater","swing_set","sword","syringe","t-shirt","table","teapot","teddy-bear","telephone","television","tennis_racquet","tent","The_Eiffel_Tower","The_Great_Wall_of_China","The_Mona_Lisa","tiger","toaster","toe","toilet","tooth","toothbrush","toothpaste","tornado","tractor","traffic_light","train","tree","triangle","trombone","truck","trumpet","umbrella","underwear","van","vase","violin","washing_machine","watermelon","waterslide","whale","wheel","windmill","wine_bottle","wine_glass","wristwatch","yoga","zebra","zigzag"],
+      // class_names: ["aircraft_carrier","airplane","alarm_clock","ambulance","angel"],
+      words: [],
+      predicted_word: "",
+      model: null,
       canvasCtx: null,
       cursorCtx: null,
       isDrawing: false,
-      brushSize: 5,
+      brushSize: 40,
       lastX: 0,
       lastY: 0,
       points: [],
       tools: [
         {
           name: "Pencil",
-          color: "#000000"
+          color: "white"
         },
         {
           name: "Eraser"
         }
       ],
       selectedToolIdx: 0,
-      undoPoints: []
+      undoPoints: [],
+      p: false
     };
   },
   computed: {
     boardStyle() {
       return {
-        color: "red",
+        color: "white",
         height: `${this.height}px`,
         width: `${this.width + 30}px`,
         "grid-template-columns": `${this.width}px 50px`
       };
     }
   },
-  mounted() {
+  async mounted() {
+    this.model = await tf.loadModel(
+      "https://storage.googleapis.com/guessing_movie6/model.json"
+    );
+    console.log(this.model);
     this.setCanvas();
     this.bindEvents();
   },
   methods: {
+    async predict() {
+      this.p = true;
+      var c = this.preprocessCanvas(document.getElementById("canvas"));
+      console.log(c.data());
+      var p = await this.model.predict(c).data();
+      console.log(p);
+      var max = Math.max.apply(null, p);
+      console.log(p.indexOf(max), max);
+      this.predicted_word = this.class_names[p.indexOf(max)];
+    },
+    preprocessCanvas(canvas) {
+      let tensor = tf
+        .fromPixels(canvas) // Shape: (300, 300, 3) - RGB image
+        .resizeNearestNeighbor([28, 28]) // Shape: (28, 28, 3) - RGB image
+        .mean(2) // Shape: (28, 28) - grayscale
+        .expandDims(2) // Shape: (28, 28, 1) - network expects 3d values with channels in the last dimension
+        .expandDims() // Shape: (1, 28, 28, 1) - network makes predictions for "batches" of images
+        .toFloat(); // Network works with floating points inputs
+      return tensor.div(255.0); // Normalize [0..255] values into [0..1] range
+    },
     setCanvas() {
       this.canvasCtx = this.$refs.canvas.getContext("2d");
       this.canvasCtx.lineJoin = "round";
@@ -111,6 +142,7 @@ export default {
     },
     bindEvents() {
       this.$refs.canvas.addEventListener("mousedown", event => {
+        this.p = false;
         this.isDrawing = true;
         [this.lastX, this.lastY] = [event.offsetX, event.offsetY];
       });
@@ -129,7 +161,7 @@ export default {
     },
     handleMouseMove(event) {
       this.drawCursor(event);
-      if (!this.isDrawing || this.showSlider) return;
+      if (!this.isDrawing) return;
       const point = {
         event,
         lastX: this.lastX,
@@ -157,6 +189,8 @@ export default {
     },
     redrawAll() {
       this.canvasCtx.clearRect(0, 0, this.width, this.height);
+      this.canvasCtx.fillStyle = "black";
+      this.canvasCtx.fillRect(0, 0, 700, 700);
       this.points.forEach(point => {
         if (this.tools[point.selectedToolIdx].name === "Eraser") {
           this.canvasCtx.globalCompositeOperation = "destination-out";
@@ -188,15 +222,6 @@ export default {
         this.cursorCtx.clearRect(0, 0, this.width, this.height);
       }, 10);
     },
-    showColorPalette() {
-      const colorPalette = document.createElement("input");
-      colorPalette.addEventListener("change", event => {
-        this.tools[0].color = event.target.value;
-      });
-      colorPalette.type = "color";
-      colorPalette.value = this.tools[0].color;
-      colorPalette.click();
-    },
     download() {
       const link = document.createElement("a");
       link.download = `${this.outputName}.png`;
@@ -208,6 +233,12 @@ export default {
       this.undoPoints = [];
       this.changeTool(0);
       this.canvasCtx.clearRect(0, 0, this.width, this.height);
+    },
+    addWord() {
+      this.words.push(this.predicted_word);
+      console.log(this.words);
+      this.eraseALl();
+      this.p = false;
     }
   }
 };
