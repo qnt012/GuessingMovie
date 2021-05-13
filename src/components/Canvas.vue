@@ -47,6 +47,7 @@
 </template>
 <script>
 import * as tf from "@tensorflow/tfjs";
+import firebase from "firebase";
 /* eslint-disable no-return-assign */
 /* eslint-disable no-restricted-globals */
 export default {
@@ -105,6 +106,7 @@ export default {
     }
   },
   async mounted() {
+    console.log(this.$firebase)
     this.model = await tf.loadModel(
       "https://storage.googleapis.com/guessing_movie6/model.json"
     );
