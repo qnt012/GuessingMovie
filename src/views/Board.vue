@@ -2,7 +2,12 @@
   <div id="board">
     <app-header></app-header>
     <center>
-      <app-canvas></app-canvas>
+      <div v-for="(word, index) in words" :key="`word-${index}`" :id="index" class="word">
+        <span>{{ word }}</span>
+        <span @click="deleteWord(index)" class="delete"><i class="fas fa-times"></i></span>
+      </div>
+      <app-canvas @wordAdded="newWord"></app-canvas>
+      <button class="result-btn">Guess Movie!</button>
     </center>
   </div>
 </template>
@@ -17,8 +22,17 @@ export default {
       words: []
     };
   },
-  computed: {},
-  methods: {},
+  methods: {
+    newWord(word) {
+      if (!this.words.includes(word)) {
+        this.words.push(word);
+        console.log(this.words);
+      }
+    },
+    deleteWord(index) {
+      this.words.splice(index, 1);
+    }
+  },
   components: {
     appHeader: Header,
     appCanvas: Canvas
