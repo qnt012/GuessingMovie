@@ -47,7 +47,6 @@
 </template>
 <script>
 import * as tf from "@tensorflow/tfjs";
-import firebase from "firebase";
 /* eslint-disable no-return-assign */
 /* eslint-disable no-restricted-globals */
 export default {
@@ -107,6 +106,7 @@ export default {
   },
   async mounted() {
     console.log(this.$firebase)
+    this.readOne();
     this.model = await tf.loadModel(
       "https://storage.googleapis.com/guessing_movie6/model.json"
     );
@@ -115,6 +115,11 @@ export default {
     this.bindEvents();
   },
   methods: {
+    async readOne () {
+      //once() : 한번만 읽음. DB내에서 바꿔도 내용이 바뀌지 않음.
+      const movieDB = await this.$firebase.database().ref().child("").once('value')
+      console.log(movieDB.val())
+    },
     async predict() {
       this.p = true;
       var c = this.preprocessCanvas(document.getElementById("canvas"));
