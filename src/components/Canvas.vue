@@ -6,11 +6,6 @@
         <canvas id="cursor" ref="cursor" :width="width" :height="height"></canvas>
       </div>
       <ul class="tools">
-        <li id="tool-pencil" :class="{ active: selectedToolIdx === 0 }" @click="changeTool(0)">
-          <button class="tools-icon-btn" :class="{ active: selectedToolIdx === 0 }">
-            <i class="fas fa-pencil-alt"></i>
-          </button>
-        </li>
         <li id="tool-erase" @click="eraseALl()">
           <button class="tools-icon-btn">
             <i class="fas fa-eraser"></i>
@@ -69,8 +64,6 @@ export default {
   data() {
     return {
       class_names: ["aircraft_carrier","airplane","alarm_clock","ambulance","angel","animal_migration","ant","anvil","apple","arm","asparagus","axe","backpack","banana","bandage","barn","baseball","baseball_bat","basket","basketball","bat","bathtub","beach","bear","beard","bed","bee","belt","bench","bicycle","binoculars","bird","birthday_cake","blackberry","blueberry","book","boomerang","bottlecap","bowtie","bracelet","brain","bread","bridge","broccoli","broom","bucket","bulldozer","bus","bush","butterfly","cactus","cake","calculator","calendar","camel","camera","camouflage","campfire","candle","cannon","canoe","car","carrot","castle","cat","ceiling_fan","cello","cell_phone","chair","chandelier","church","circle","clarinet","clock","cloud","coffee_cup","compass","computer","cookie","cooler","couch","cow","crab","crayon","crocodile","crown","cruise_ship","cup","diamond","dishwasher","diving_board","dog","dolphin","donut","door","dragon","dresser","drill","drums","duck","dumbbell","ear","elbow","elephant","envelope","eraser","eye","eyeglasses","face","fan","feather","fence","finger","fireplace","firetruck","fire_hydrant","fish","flamingo","flashlight","flip_flops","floor_lamp","flower","flying_saucer","foot","fork","frog","frying_pan","garden","garden_hose","giraffe","goatee","golf_club","grapes","grass","guitar","hamburger","hammer","hand","harp","hat","headphones","hedgehog","helicopter","helmet","hexagon","hockey_puck","hockey_stick","horse","hospital","hot_air_balloon","hot_dog","hot_tub","hourglass","house","house_plant","hurricane","ice_cream","jacket","jail","kangaroo","key","keyboard","knee","knife","ladder","lantern","laptop","leaf","leg","lighter","lighthouse","lightning","light_bulb","line","lion","lipstick","lobster","lollipop","mailbox","map","marker","matches","megaphone","mermaid","microphone","microwave","monkey","moon","mosquito","motorbike","mountain","mouse","moustache","mouth","mug","mushroom","nail","necklace","nose","ocean","octagon","octopus","onion","oven","owl","paintbrush","paint_can","palm_tree","panda","pants","paper_clip","parachute","parrot","passport","peanut","pear","peas","pencil","penguin","piano","pickup_truck","picture_frame","pig","pillow","pineapple","pizza","pliers","police_car","pond","pool","popsicle","postcard","potato","power_outlet","purse","rabbit","raccoon","radio","rain","rainbow","rake","remote_control","rhinoceros","rifle","river","rollerskates","roller_coaster","sailboat","sandwich","saw","saxophone","school_bus","scissors","scorpion","screwdriver","sea_turtle","see_saw","shark","sheep","shoe","shorts","shovel","sink","skateboard","skull","skyscraper","sleeping_bag","smiley_face","snail","snake","snorkel","snowflake","snowman","soccer_ball","sock","speedboat","spider","spoon","spreadsheet","square","squiggle","squirrel","stairs","star","steak","stereo","stethoscope","stitches","stop_sign","stove","strawberry","streetlight","string_bean","submarine","suitcase","sun","swan","sweater","swing_set","sword","syringe","t-shirt","table","teapot","teddy-bear","telephone","television","tennis_racquet","tent","The_Eiffel_Tower","The_Great_Wall_of_China","The_Mona_Lisa","tiger","toaster","toe","toilet","tooth","toothbrush","toothpaste","tornado","tractor","traffic_light","train","tree","triangle","trombone","truck","trumpet","umbrella","underwear","van","vase","violin","washing_machine","watermelon","waterslide","whale","wheel","windmill","wine_bottle","wine_glass","wristwatch","yoga","zebra","zigzag"],
-      // class_names: ["aircraft_carrier","airplane","alarm_clock","ambulance","angel"],
-      words: [],
       predicted_word: "",
       model: null,
       canvasCtx: null,
@@ -83,7 +76,7 @@ export default {
       tools: [
         {
           name: "Pencil",
-          color: "white"
+          color: "black"
         },
         {
           name: "Eraser"
@@ -115,7 +108,14 @@ export default {
   methods: {
     async predict() {
       this.p = true;
-      var c = this.preprocessCanvas(document.getElementById("canvas"));
+      var src = this.canvasCtx.getImageData(0,0,700,700);
+      var data = src.data;
+      for (var i = 0; i< data.length; i+=4){
+        data[i] = 255 - data[i];
+        data[i+1] = 255 - data[i+1];
+        data[i+2] = 255 - data[i+2];
+      }
+      var c = this.preprocessCanvas(src);
       console.log(c.data());
       var p = await this.model.predict(c).data();
       console.log(p);
@@ -189,7 +189,7 @@ export default {
     },
     redrawAll() {
       this.canvasCtx.clearRect(0, 0, this.width, this.height);
-      this.canvasCtx.fillStyle = "black";
+      this.canvasCtx.fillStyle = "white";
       this.canvasCtx.fillRect(0, 0, 700, 700);
       this.points.forEach(point => {
         if (this.tools[point.selectedToolIdx].name === "Eraser") {
@@ -235,8 +235,7 @@ export default {
       this.canvasCtx.clearRect(0, 0, this.width, this.height);
     },
     addWord() {
-      this.words.push(this.predicted_word);
-      console.log(this.words);
+      this.$emit("wordAdded",this.predicted_word)
       this.eraseALl();
       this.p = false;
     }

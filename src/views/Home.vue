@@ -1,16 +1,13 @@
 <template>
   <div id="app">
-    <app-header></app-header>
+    <div class="empty"></div>
     <app-ball></app-ball>
     <img class="home-img" src="../assets/home.png"/>
     <button class="learn-more" @click="moveTo('board')">Start Game</button>
-    <app-footer></app-footer>
   </div>
 </template>
 
 <script>
-import Footer from "../components/Footer.vue";
-import Header from "../components/Header.vue";
 import Ball from "../components/Ball.vue";
 import router from "../router.js";
 
@@ -29,9 +26,7 @@ export default {
   mounted() {},
   watch: {},
   components: {
-    appHeader: Header,
-    appBall: Ball,
-    appFooter: Footer
+    appBall: Ball
   }
 };
 </script>
