@@ -73,6 +73,7 @@ export default {
       words: [],
       predicted_word: "",
       model: null,
+      firebase_movieDB: "",
       canvasCtx: null,
       cursorCtx: null,
       isDrawing: false,
@@ -105,7 +106,6 @@ export default {
     }
   },
   async mounted() {
-    console.log(this.$firebase)
     this.readOne();
     this.model = await tf.loadModel(
       "https://storage.googleapis.com/guessing_movie6/model.json"
@@ -117,8 +117,11 @@ export default {
   methods: {
     async readOne () {
       //once() : 한번만 읽음. DB내에서 바꿔도 내용이 바뀌지 않음.
-      const movieDB = await this.$firebase.database().ref().child("").once('value')
-      console.log(movieDB.val())
+      const movieDB = await this.$firebase.database().ref("movie");
+      movieDB.on('value', snapshot => {
+        this.firebase_movieDB = snapshot.val();
+        console.log(this.firebase_movieDB[0])
+      })
     },
     async predict() {
       this.p = true;
