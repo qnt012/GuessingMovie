@@ -12,8 +12,8 @@
       <br/>
       <center>
       <div class="result-btn" v-if="words.length" @click="guess"><div class="eff"></div>Guess Movie!</div>
-      <div class="movie" v-if="guessed"></div>
-      <span class="movie-text" v-if="guessed">{{ movie }}</span>
+      <img class="movie" v-if="guessed" v-bind:src="'http://image.tmdb.org/t/p/w500/'+poster_path">
+      <h2 class="movie-text" v-if="guessed">{{ movie }}</h2>
       </center>
     </div>
     <app-footer></app-footer>
@@ -30,7 +30,8 @@ export default {
     return {
       words: [],
       guessed: false,
-      movie: "test"
+      movie: "test",
+      poster_path: "/leJcOavVPUrYodUJteBOl7pRFuU.jpg"
     };
   },
   methods: {
@@ -48,7 +49,7 @@ export default {
       this.words.splice(index, 1);
       this.guessed = false;
     },
-    guess() {
+    async guess() {
       this.guessed = true;
     }
   },
