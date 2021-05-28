@@ -59,7 +59,7 @@ export default {
     outputName: {
       type: String,
       default: "canvas"
-    }
+    },
   },
   data() {
     return {
@@ -113,7 +113,8 @@ export default {
       const movieDB = await this.$firebase.database().ref("movie");
       movieDB.on('value', snapshot => {
         this.firebase_movieDB = snapshot.val();
-        console.log(this.firebase_movieDB[0])
+        console.log(this.firebase_movieDB[13]) // this.firebase_movieDB[0].keyword
+        this.$emit("movieGet", this.firebase_movieDB)
       })
     },
     async predict() {
