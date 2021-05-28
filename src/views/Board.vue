@@ -2,7 +2,7 @@
   <div id="board">
     <app-header></app-header>
     <div id="left">
-      <app-canvas @wordAdded="newWord"></app-canvas>
+      <app-canvas @wordAdded="newWord" @movieGet="getMovie"></app-canvas>
     </div>
     <div id="right">
       <div v-for="(word, index) in words" :key="`word-${index}`" :id="index" class="word">
@@ -29,8 +29,11 @@ export default {
   data: function() {
     return {
       words: [],
+      movieDB: Object,
+      movieKeyword: [],
+      count: [],
       guessed: false,
-      movie: "test"
+      movie: ""
     };
   },
   methods: {
@@ -50,12 +53,53 @@ export default {
     },
     guess() {
       this.guessed = true;
+      var max = 0
+      var maxidx = 0
+      for (var a = 0; a < this.count.length; a++)
+        this.count[a] = 0
+      for (var i of this.words)
+      {
+        for (var j = 0; j < this.movieKeyword.length; j++)
+        {
+          var index = this.movieKeyword[j].indexOf(i)
+          if (index != -1)
+          {
+            this.count[j] += 1
+            //console.log(this.movieDB[j].name)
+          }
+        }
+      }
+      for (var k = 0; k < this.count.length; k++)
+      {
+        if (max < this.count[k])
+        {
+            max = this.count[k]
+            maxidx = k
+        }
+      }
+      this.movie = this.movieDB[maxidx].name
+      console.log(this.movieDB[maxidx].name)
+      console.log(maxidx)
+      console.log(max)
+    },
+    getMovie(movieword) {
+      for (var i = 0; i < movieword.length; i++)
+      {
+        var temp = movieword[i].keyword.replace("\"","").split(",")
+        this.movieKeyword.push(temp)
+        this.count.push(0)
+      }
+      this.movieDB = movieword
+      //console.log(this.movieDB[0])
+      //console.log(this.movieKeyword[1205][1])
+      //console.log(this.movieKeyword.length)
+      //console.log(this.count)
     }
   },
   components: {
     appHeader: Header,
     appFooter: Footer,
-    appCanvas: Canvas
+    appCanvas: Canvas,
   }
 };
 </script>
