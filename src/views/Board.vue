@@ -33,7 +33,7 @@ export default {
       movieKeyword: [],
       count: [],
       guessed: false,
-      movie: "test"
+      movie: ""
     };
   },
   methods: {
@@ -55,6 +55,8 @@ export default {
       this.guessed = true;
       var max = 0
       var maxidx = 0
+      for (var a = 0; a < this.count.length; a++)
+        this.count[a] = 0
       for (var i of this.words)
       {
         for (var j = 0; j < this.movieKeyword.length; j++)
@@ -65,7 +67,6 @@ export default {
             this.count[j] += 1
             //console.log(this.movieDB[j].name)
           }
-
         }
       }
       for (var k = 0; k < this.count.length; k++)
@@ -76,6 +77,7 @@ export default {
             maxidx = k
         }
       }
+      this.movie = this.movieDB[maxidx].name
       console.log(this.movieDB[maxidx].name)
       console.log(maxidx)
       console.log(max)

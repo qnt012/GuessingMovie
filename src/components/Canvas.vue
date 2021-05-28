@@ -113,7 +113,7 @@ export default {
       const movieDB = await this.$firebase.database().ref("movie");
       movieDB.on('value', snapshot => {
         this.firebase_movieDB = snapshot.val();
-        console.log(this.firebase_movieDB[14927]) // this.firebase_movieDB[0].keyword
+        console.log(this.firebase_movieDB[13]) // this.firebase_movieDB[0].keyword
         this.$emit("movieGet", this.firebase_movieDB)
       })
     },
