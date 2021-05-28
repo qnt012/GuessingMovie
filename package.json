@@ -10,6 +10,7 @@
   "dependencies": {
     "@teachablemachine/image": "^0.8.4",
     "@tensorflow/tfjs": "0.15.3",
+    "axios": "^0.21.1",
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.13.0",
     "bulma": "^0.8.2",
