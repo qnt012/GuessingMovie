@@ -13,12 +13,12 @@
       <center>
       <div class="result-btn" v-if="words.length" @click="guess"><div class="eff"></div>Guess Movie!</div>
       </center>
-      <img class="movie" v-if="guessed" v-bind:src="'http://image.tmdb.org/t/p/w500'+poster_path">
       <h2 class="movie-text" v-if="guessed">{{ max_movie }}</h2>
-      <div v-for="(movie, index) in movie_list.slice(0,5)" :key="`movie-${index}`" class="">
-        <button v-if="movie.name != max_movie && guessed" @click="showElse(index)">/></button>
+      <img class="movie" v-if="guessed" v-bind:src="'http://image.tmdb.org/t/p/w500'+poster_path">
+      <div v-for="(movie, index) in movie_list.slice(0,5)" :key="`movie-${index}`">
+        <div class="else_btn" v-if="movie.name != max_movie && guessed" @click="showElse(index)"><div class="eff-5"></div>/></div>
         <div v-if="movie.name != max_movie && guessed" :id="index" class="ml">
-          {{movie.name}}
+          <div class="el_text">{{movie.name}}</div>
           <img class="el_movie" v-if="guessed" v-bind:src="'http://image.tmdb.org/t/p/w500'+movie.poster_path">
         </div>
       </div>
