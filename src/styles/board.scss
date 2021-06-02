@@ -127,6 +127,7 @@ button.tools-icon-btn {
   float: left;
   animation: fadein 3s;
   margin-right: 20px;
+  box-shadow: 5px 5px 5px lightgray;
   -webkit-animation: fadein 3s; /* Safari and Chrome */
 }
 .movie-text {
@@ -181,11 +182,12 @@ button.tools-icon-btn {
   overflow:hidden;
   margin: 2px 0px;
   border-radius: 10px;
-  border:2px solid #ffd139;
+  border:3px solid #ffd139;
   font-family: "Comic Sans MS";
   font-size: 20px;
-  line-height: 23px;
+  line-height: 19px;
   color: #ffd139;
+  box-shadow: 5px 5px 5px lightgray;
   animation: fadein 3s;
   -webkit-animation: fadein 3s; /* Safari and Chrome */
 }
