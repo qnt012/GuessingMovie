@@ -5,24 +5,29 @@
       <app-canvas @wordAdded="newWord" @movieGet="getMovie"></app-canvas>
     </div>
     <div id="right">
-      <div v-for="(word, index) in words" :key="`word-${index}`" :id="index" class="word">
+      <div v-for="(word, index) in words" :key="`word-${index}`" class="word">
         <span>{{ word }}</span>
         <span @click="deleteWord(index)" class="delete"><i class="fas fa-times"></i></span>
       </div>
       <br/>
       <center>
       <div class="result-btn" v-if="words.length" @click="guess"><div class="eff"></div>Guess Movie!</div>
-      <img class="movie" v-if="guessed" v-bind:src="'http://image.tmdb.org/t/p/w500'+poster_path">
-      <h2 class="movie-text" v-if="guessed">{{ movie }}</h2>
       </center>
+      <img class="movie" v-if="guessed" v-bind:src="'http://image.tmdb.org/t/p/w500'+poster_path">
+      <h2 class="movie-text" v-if="guessed">{{ max_movie }}</h2>
+      <div v-for="(movie, index) in movie_list.slice(0,5)" :key="`movie-${index}`" class="">
+        <button v-if="movie.name != max_movie && guessed" @click="showElse(index)">/></button>
+        <div v-if="movie.name != max_movie && guessed" :id="index" class="ml">
+          {{movie.name}}
+          <img class="el_movie" v-if="guessed" v-bind:src="'http://image.tmdb.org/t/p/w500'+movie.poster_path">
+        </div>
+      </div>
     </div>
-    <app-footer></app-footer>
   </div>
 </template>
 
 <script>
 import Header from "../components/Header.vue";
-import Footer from "../components/Footer.vue";
 import Canvas from "../components/Canvas.vue";
 
 export default {
@@ -33,8 +38,10 @@ export default {
       movieKeyword: [],
       count: [],
       guessed: false,
-      movie: "test",
-      poster_path: "/vzmL6fP7aPKNKPRTFnZmiUfciyV.jpg"
+      max_movie: "",
+      movie_list: [],
+      poster_path: "",
+      poster_list: []
     };
   },
   methods: {
@@ -53,54 +60,47 @@ export default {
       this.guessed = false;
     },
     async guess() {
+      this.movie_list = [];
+      this.poster_list = [];
       this.guessed = true;
-      var max = 0
-      var maxidx = 0
-      for (var a = 0; a < this.count.length; a++)
-        this.count[a] = 0
-      for (var i of this.words)
-      {
-        for (var j = 0; j < this.movieKeyword.length; j++)
-        {
-          var index = this.movieKeyword[j].indexOf(i)
-          if (index != -1)
-          {
-            this.count[j] += 1
-            //console.log(this.movieDB[j].name)
+      var max = 0;
+      var maxidx = 0;
+      for (var a = 0; a < this.count.length; a++) this.count[a] = 0;
+      for (var i of this.words) {
+        for (var j = 0; j < this.movieKeyword.length; j++) {
+          var index = this.movieKeyword[j].indexOf(i);
+          if (index != -1) {
+            this.count[j] += 1;
+            this.movie_list.push(this.movieDB[j]);
           }
         }
       }
-      for (var k = 0; k < this.count.length; k++)
-      {
-        if (max < this.count[k])
-        {
-            max = this.count[k]
-            maxidx = k
+      for (var k = 0; k < this.count.length; k++) {
+        if (max < this.count[k]) {
+          max = this.count[k];
+          maxidx = k;
         }
       }
-      this.movie = this.movieDB[maxidx].name
-      console.log(this.movieDB[maxidx].name)
-      console.log(maxidx)
-      console.log(max)
+      this.max_movie = this.movieDB[maxidx].name;
+      this.poster_path = this.movieDB[maxidx].poster_path;
     },
     getMovie(movieword) {
-      for (var i = 0; i < movieword.length; i++)
-      {
-        var temp = movieword[i].keyword.replace("\"","").split(",")
-        this.movieKeyword.push(temp)
-        this.count.push(0)
+      for (var i = 0; i < movieword.length; i++) {
+        var temp = movieword[i].keyword.replace('"', "").split(",");
+        this.movieKeyword.push(temp);
+        this.count.push(0);
       }
-      this.movieDB = movieword
-      //console.log(this.movieDB[0])
-      //console.log(this.movieKeyword[1205][1])
-      //console.log(this.movieKeyword.length)
-      //console.log(this.count)
+      this.movieDB = movieword;
+    },
+    showElse(i) {
+      var doc = document.getElementById(i)
+      if (doc.style.display != "block") doc.style.display = "block";
+      else doc.style.display = "none";
     }
   },
   components: {
     appHeader: Header,
-    appFooter: Footer,
-    appCanvas: Canvas,
+    appCanvas: Canvas
   }
 };
 </script>

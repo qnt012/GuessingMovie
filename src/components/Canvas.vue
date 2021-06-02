@@ -48,12 +48,12 @@ export default {
   props: {
     width: {
       type: Number,
-      default: 700
+      default: 784
       //default: screen.width - 100
     },
     height: {
       type: Number,
-      default: 700
+      default: 784
       //default: screen.height - Number(screen.height) / 100 * 35
     },
     outputName: {
@@ -119,7 +119,7 @@ export default {
     },
     async predict() {
       this.p = true;
-      var src = this.canvasCtx.getImageData(0,0,700,700);
+      var src = this.canvasCtx.getImageData(0,0,784,784);
       var data = src.data;
       for (var i = 0; i< data.length; i+=4){
         data[i] = 255 - data[i];
@@ -201,7 +201,7 @@ export default {
     redrawAll() {
       this.canvasCtx.clearRect(0, 0, this.width, this.height);
       this.canvasCtx.fillStyle = "white";
-      this.canvasCtx.fillRect(0, 0, 700, 700);
+      this.canvasCtx.fillRect(0, 0, 784, 784);
       this.points.forEach(point => {
         if (this.tools[point.selectedToolIdx].name === "Eraser") {
           this.canvasCtx.globalCompositeOperation = "destination-out";
