@@ -1,14 +1,18 @@
 <template>
-  <div  id="result">
-    <h2 class="movie-text">{{ max_movie }}</h2>
-    <img class="movie" v-bind:src="'http://image.tmdb.org/t/p/w500'+poster_path">
-    <div v-for="(movie, index) in movie_list" :key="`movie-${index}`">
-      <!-- <div class="else_btn" v-if="movie.name != max_movie" @click="showElse(index)"><div class="eff-5"></div>/></div> -->
-      <div v-if="movie.name != max_movie" :id="index" class="ml">
-        <div class="el_text">{{movie.name}}</div>
-        <img class="el_movie" v-bind:src="'http://image.tmdb.org/t/p/w500'+movie.poster_path">
+  <div id="result">
+    <center>
+    <div class="gohome" onclick="location.href = 'http://localhost:8080/'"><i class="fas fa-undo-alt"></i> Go home</div>
+    <div class="result-container">
+      <h2 class="movie-text">{{ max_movie }}</h2>
+      <img class="movie" v-bind:src="'http://image.tmdb.org/t/p/w500'+poster_path">
+      <div v-for="(movie, index) in movie_list" :key="`movie-${index}`">
+        <div v-if="movie.name != max_movie" :id="index" class="ml">
+          <div class="el_text">{{movie.name}}</div>
+          <img class="el_movie" v-bind:src="'http://image.tmdb.org/t/p/w500'+movie.poster_path">
+        </div>
       </div>
     </div>
+    </center>
   </div>
 </template>
 
