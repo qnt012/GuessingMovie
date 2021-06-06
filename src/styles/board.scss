@@ -1,17 +1,29 @@
+body {
+  background-color: white;
+}
 .board-wrapper {
   display: grid;
   position: relative;
+}
+.back {
+  position: absolute;
+  left: 0px;
+  top: 0;
+  width: 730px;
+  height: 850px;
+  background-image: url("../assets/notepad.png");
+  background-size : cover;
+  z-index: -1;
 }
 .draw-area canvas {
   position: absolute;
   left: 20px;
   top: 0;
-  margin-top:10px;
-  border: 2px solid #c8c8c8;
+  margin-top:130px;
   border-radius: 10px 0px 10px 10px;
 }
 .tools {
-  margin-top:30px;
+  margin-top:150px;
   list-style: none;
   padding: 0px;
 }
@@ -58,19 +70,6 @@ button.tools-icon-btn {
   display: inline-block;
   font-size: 16px;
   outline: none;
-}
-
-#left {
-  position: absolute;
-  left: 0px;
-  margin-left: 100px;
-  width: 40%
-}
-#right {
-  position:absolute;
-  right: 0px;
-  margin-right: 100px;
-  width: 40%;
 }
 .board {
   color: #ffd139;

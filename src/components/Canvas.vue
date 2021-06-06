@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="board-wrapper" :style="boardStyle">
+      <div class="back"></div>
       <div class="draw-area">
         <canvas id="canvas" ref="canvas" :width="width" :height="height"></canvas>
         <canvas id="cursor" ref="cursor" :width="width" :height="height"></canvas>
