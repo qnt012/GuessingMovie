@@ -2,31 +2,23 @@
   <div id="board">
     <app-header></app-header>
     <center>
-    <app-canvas @wordAdded="newWord" @movieGet="getMovie"></app-canvas>
-    </center>
     <div v-for="(word, index) in words" :key="`word-${index}`" class="word">
       <span>{{ word }}</span>
       <span @click="deleteWord(index)" class="delete"><i class="fas fa-times"></i></span>
     </div>
-    <br/>
+    <app-canvas @wordAdded="newWord" @movieGet="getMovie"></app-canvas>
     <div class="result-btn" v-if="words.length" @click="guess"><div class="eff"></div>Guess Movie!</div>
-    <h2 class="movie-text" v-if="guessed">{{ max_movie }}</h2>
-    <img class="movie" v-if="guessed" v-bind:src="'http://image.tmdb.org/t/p/w500'+poster_path">
-    <div v-for="(movie, index) in movie_list.slice(0,7)" :key="`movie-${index}`">
-      <div class="else_btn" v-if="movie.name != max_movie && guessed" @click="showElse(index)"><div class="eff-5"></div>/></div>
-      <div v-if="movie.name != max_movie && guessed" :id="index" class="ml">
-        <div class="el_text">{{movie.name}}</div>
-        <img class="el_movie" v-if="guessed" v-bind:src="'http://image.tmdb.org/t/p/w500'+movie.poster_path">
-      </div>
-    </div>
+    </center>
   </div>
 </template>
 
 <script>
 import Header from "../components/Header.vue";
 import Canvas from "../components/Canvas.vue";
+import router from "../router.js";
 
 export default {
+  router,
   data: function() {
     return {
       words: [],
@@ -56,6 +48,10 @@ export default {
       this.guessed = false;
     },
     async guess() {
+      if (this.words.length < 2) {
+        alert("There must be at least 2 keywords.");
+        return;
+      }
       this.movie_list = [];
       this.poster_list = [];
       this.guessed = true;
@@ -79,6 +75,7 @@ export default {
       }
       this.max_movie = this.movieDB[maxidx].name;
       this.poster_path = this.movieDB[maxidx].poster_path;
+      router.push({ name: 'result', params: { max_movie: this.max_movie, poster_path: this.poster_path, movie_list: this.movie_list, poster_list: this.poster_list }})
     },
     getMovie(movieword) {
       for (var i = 0; i < movieword.length; i++) {
@@ -87,11 +84,6 @@ export default {
         this.count.push(0);
       }
       this.movieDB = movieword;
-    },
-    showElse(i) {
-      var doc = document.getElementById(i)
-      if (doc.style.display != "block") doc.style.display = "block";
-      else doc.style.display = "none";
     }
   },
   components: {

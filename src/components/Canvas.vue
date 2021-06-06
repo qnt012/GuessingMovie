@@ -34,7 +34,7 @@
         </li>
         <li id="tool-add" v-if="p" @click="addWord">
           <button class="tools-icon-btn">
-            <i class="fas fa-arrow-right"></i>
+            <i class="fas fa-plus"></i>
           </button>
         </li>
       </ul>

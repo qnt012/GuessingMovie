@@ -1,0 +1,101 @@
+#result {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+.movie {
+    width: 350px;
+    height: 500px;
+    border:4px solid #ffd139;
+    animation: fadein 3s;
+    margin-right: 20px;
+    box-shadow: 5px 5px 5px lightgray;
+    -webkit-animation: fadein 3s; /* Safari and Chrome */
+  }
+  .movie-text {
+    font-family: "Comic Sans MS";
+    animation: fadein 3s;
+    -webkit-animation: fadein 3s; /* Safari and Chrome */
+  }
+  
+  
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+  }
+  @-webkit-keyframes fadein { /* Safari and Chrome */
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+  }
+
+  .ml{
+    //display: none;
+  }
+  
+  .movies {
+      float: left;
+      width: 350px;
+      height: 500px;
+  }
+
+.el_text {
+    font-family: "Comic Sans MS";
+    animation: fadein 1s;
+    -webkit-animation: fadein 1s; /* Safari and Chrome */
+  }
+  
+  .el_movie {
+    width: 175px;
+    height: 250px;
+    border:4px solid #ffd139;
+    animation: fadein 1s;
+    -webkit-animation: fadein 1s; /* Safari and Chrome */
+  }
+  
+  .else_btn{
+    display: inline-block;
+    width:50px;
+    height:25px;
+    text-align:center;
+    cursor:pointer;
+    position:relative;
+    box-sizing:border-box;
+    overflow:hidden;
+    margin: 2px 0px;
+    border-radius: 10px;
+    border:3px solid #ffd139;
+    font-family: "Comic Sans MS";
+    font-size: 20px;
+    line-height: 19px;
+    color: #ffd139;
+    box-shadow: 5px 5px 5px lightgray;
+    animation: fadein 3s;
+    -webkit-animation: fadein 3s; /* Safari and Chrome */
+  }
+  .eff-5{
+    width:50px;
+    height:25px;
+    left:-50px;
+    top:-25px;
+    background:#ffd139;
+    position:absolute;
+    transition:all .5s ease;
+    z-index:-1;
+  }
+  .else_btn:hover {
+    color:white;
+    .eff-5{
+      left:0;top:0;
+    }
+  }
