@@ -25,11 +25,7 @@ export default {
       movieDB: Object,
       movieKeyword: [],
       count: [],
-      guessed: false,
-      max_movie: "",
-      movie_list: [],
-      poster_path: "",
-      poster_list: []
+      guessed: false
     };
   },
   methods: {
@@ -52,36 +48,24 @@ export default {
         alert("There must be at least 2 keywords.");
         return;
       }
-      this.movie_list = [];
-      this.poster_list = [];
       this.guessed = true;
-      var max = 0;
-      var maxidx = 0;
-      for (var a = 0; a < this.count.length; a++) this.count[a] = 0;
       for (var i of this.words) {
         for (var j = 0; j < this.movieKeyword.length; j++) {
-          var index = this.movieKeyword[j].indexOf(i);
-          if (index != -1) {
-            this.count[j] += 1;
-            this.movie_list.push(this.movieDB[j]);
+          for (var e of this.movieKeyword[j]){
+            if (i == e) this.count[j][2] += 1;
           }
         }
       }
-      for (var k = 0; k < this.count.length; k++) {
-        if (max < this.count[k]) {
-          max = this.count[k];
-          maxidx = k;
-        }
-      }
-      this.max_movie = this.movieDB[maxidx].name;
-      this.poster_path = this.movieDB[maxidx].poster_path;
-      router.push({ name: 'result', params: { max_movie: this.max_movie, poster_path: this.poster_path, movie_list: this.movie_list, poster_list: this.poster_list }})
+      this.count.sort(function(a, b) {
+        return b[2] - a[2];
+      });
+      router.push({ name: 'result', params: { count: this.count.splice(0,50), words: this.words}})
     },
     getMovie(movieword) {
       for (var i = 0; i < movieword.length; i++) {
         var temp = movieword[i].keyword.replace('"', "").split(",");
         this.movieKeyword.push(temp);
-        this.count.push(0);
+        this.count.push([movieword[i].name,movieword[i].poster_path, 0])
       }
       this.movieDB = movieword;
     }

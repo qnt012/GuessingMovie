@@ -7,7 +7,7 @@
   font-family: "Comic Sans MS";
   font-size: 55px;
   font-weight: bolder;
-  padding: 100px 0;
+  padding: 80px 0;
   i:hover{
     transition-duration: 0.8s;
     transform: rotate(-360deg);
@@ -19,6 +19,7 @@
   padding: 40px;
   width: 80%;
   height: 100%;
+  margin-top: 20px;
 }
 
 .movie-text {
@@ -58,4 +59,17 @@
 .ml{
   width: min-content;
   display:inline-block;
+}
+
+.word {
+  font-family: "Comic Sans MS";
+  font-size: 25px;
+  display: inline;
+  font-weight: bolder;
+  margin-left: 35px;
+}
+
+.bar {
+  background-color: white;
+  padding: 20px;
 }
