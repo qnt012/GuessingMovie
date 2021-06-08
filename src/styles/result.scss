@@ -1,0 +1,75 @@
+#result {
+  background-color:#ffd139;
+}
+.gohome {
+  width: max-content;
+  cursor: pointer;
+  font-family: "Comic Sans MS";
+  font-size: 55px;
+  font-weight: bolder;
+  padding: 80px 0;
+  i:hover{
+    transition-duration: 0.8s;
+    transform: rotate(-360deg);
+  }
+}
+.result-container {
+  column-count: 4;
+  column-gap: 1em;
+  padding: 40px;
+  width: 80%;
+  height: 100%;
+  margin-top: 20px;
+}
+
+.movie-text {
+  font-family: "Comic Sans MS";
+  animation: fadein 3s;
+  -webkit-animation: fadein 3s; /* Safari and Chrome */
+}
+.movie {
+  width: 350px;
+  height: 500px;
+  animation: fadein 3s;
+  box-shadow: 5px 5px 5px;
+  border-radius: 30px;
+  -webkit-animation: fadein 3s; /* Safari and Chrome */
+  :hover {
+    filter: brightness(70%);
+    transition: filter 0.25s ease;
+  }
+}
+
+.el_text {
+  font-family: "Comic Sans MS";
+  font-size: 20px;
+  animation: fadein 1s;
+  -webkit-animation: fadein 1s; /* Safari and Chrome */
+}
+  
+.el_movie {
+  width: 175px;
+  height: 250px;
+  margin-bottom: 20px;
+  border-radius: 15px;
+  animation: fadein 1s;
+  -webkit-animation: fadein 1s; /* Safari and Chrome */
+}
+
+.ml{
+  width: min-content;
+  display:inline-block;
+}
+
+.word {
+  font-family: "Comic Sans MS";
+  font-size: 25px;
+  display: inline;
+  font-weight: bolder;
+  margin-left: 35px;
+}
+
+.bar {
+  background-color: white;
+  padding: 20px;
+}

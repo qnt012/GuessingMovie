@@ -16,6 +16,12 @@ export default new Router({
             path: '/board',
             name: 'board',
             component: () => import("./views/Board.vue")
+        },
+        {
+            path: '/result',
+            name: 'result',
+            component: () => import("./views/Result.vue"),
+            props: true
         }
     ]
 })
