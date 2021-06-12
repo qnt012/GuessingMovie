@@ -41,9 +41,20 @@ Google 에서 제공하는 낙서 데이터 셋 기반의 Convolutional Neural N
 <img src="/image/ach1.PNG" width="80%" height="80%">
   
 ## Project Setup
-#### npm setup
+```
+Windows PowerShell 실행 
+```
+```
+cd [Project directory]
+```
 ```
 npm install              //Node.js로 만들어진 모듈을 웹에서 받아서 설치하고 관리해주는 프로그램
+```
+```
+npm run serve
+```
+```
+http://localhost:8080/ 접속
 ```
 
 #### Download CORS plugin
