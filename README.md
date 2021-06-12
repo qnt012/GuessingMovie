@@ -17,9 +17,29 @@ Google 에서 제공하는 낙서 데이터 셋 기반의 Convolutional Neural N
   
 #### 필요사항  
 * 영화에 대한 키워드 데이터: [Firebase Realtime Database](https://asap-tensor-default-rtdb.firebaseio.com/)
+    * [The Movies Dataset](https://www.kaggle.com/rounakbanik/the-movies-dataset)  
+    * [TMDB 5000 Movie Dataset](https://www.kaggle.com/tmdb/tmdb-movie-metadata)
 * 그림의 카테고리 예측 모델: [Google Cloud Storage](guessing_movie_345)
+    * [Google Quick, Draw!](https://github.com/googlecreativelab/quickdraw-dataset#readme)   
 
-
+## Model 
+#### Environment
+* 금오공과대학교 AI ∙ 빅데이터 센터 제공 Jupyterhub  
+* 서버 사양: 4 CPU, 1 GPU(GRID V100DX-16C), 16GB Memory  
+* Tensorflow v2.3.0, python 3.6.13 이 설치된 환경 
+  
+#### Construction 
+* 입력
+    * 28x28 낙서 이미지 데이터 
+* 특징 추출 계층
+    * 4쌍의 Convolution2D layer & Max Pooling layer
+* Flatten Layer
+    * 2차원 행렬 → 1차원 배열
+* 분류 계층(Fully Connected layer)
+    * 카테고리 수(345)에 비해 부족한 클래스별 학습 이미지 수(6,000) 문제 → Batch Normalization & Dense layer 사이 2번의 Dropout(0.2, 0.5) 적용
+* 
+<img src="/image/ach1.PNG" width="80%" height="80%">
+  
 ## Project Setup
 #### npm setup
 ```
@@ -47,6 +67,6 @@ https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgc
 npm run serve
 ```
 
-## Model Construction 
-![캡처](/image/ach1.png)
-![캡처](/image/ach2.png)
+## Play
+
+
