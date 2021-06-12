@@ -37,7 +37,7 @@ Google 에서 제공하는 낙서 데이터 셋 기반의 Convolutional Neural N
     * 2차원 행렬 → 1차원 배열
 * 분류 계층(Fully Connected layer)
     * 카테고리 수(345)에 비해 부족한 클래스별 학습 이미지 수(6,000) 문제 → Batch Normalization & Dense layer 사이 2번의 Dropout(0.2, 0.5) 적용
-* 
+* 정확도: 89.55%  
 <img src="/image/ach1.PNG" width="80%" height="80%">
   
 ## Project Setup
@@ -68,5 +68,36 @@ npm run serve
 ```
 
 ## Play
+#### Home 페이지
+* 사용자가 가장 먼저 확인할 수 있는 시작 화면
+* 원 형태로 회전하며 마우스 호버 시 상세 정보 확인 가능
+* Start Game 버튼을 눌러 게임 시작
+![캡처](/image/home.PNG)  
+  
+#### Board 페이지
+* 사용자가 그림을 그리는 영역
+* 캔버스 도구 영역 
+    * 지우기(erase): 캔버스의 모든 영역을 지움 
+    * 되돌리기(undo), 다시 실행(redo): 짧은 선 단위로 수행
+    * 다운로드(download): 파일로 그림 저장
+    * 예측(predict): 그림의 키워드 예측
+![캡처](/image/board1.PNG)  
+  
+* 사용자가 그린 그림에 대한 이미지 예측과 키워드 저장 화면
+    * 그림을 그린 후 예측 버튼을 누르면 캔버스의 왼편에 예측 키워드 상위 5개의 리스트가 나타남
+    * 사용자는 리스트에서 자신이 원하는 키워드를 클릭하여 이를 추가 
+    * '[x]' 버튼을 통해 삭제 가능
+![캡처](/image/board2.png)  
+  
+* 키워드가 추가되면 캔버스 아래에 Guess movie 버튼이 나타남
+    *  사용자는 예측하기를 원하는 영화에 대한 자신의 키워드를 2개 이상 5개 이하로 추가
+    * Guess movie 버튼을 눌러 결과 화면(Result)으로 넘어감
+![캡처](/image/board3.PNG)  
+  
 
-
+#### Result 페이지
+* 결과화면
+    * 사용자가 입력한 키워드와 예측 결과 영화를 보여줌 (4x4 형태로 출력) 
+    * 가장 관련도 높은 영화를 좌측 상단에 크게 보여줌
+    * ‘↺ Go home’ 영역 클릭 시 시작 화면(Home)으로 돌아감 
+![캡처](/image/result1.PNG)
