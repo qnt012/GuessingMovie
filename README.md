@@ -41,6 +41,7 @@ Google 에서 제공하는 낙서 데이터 셋 기반의 Convolutional Neural N
 <img src="/image/ach1.PNG" width="80%" height="80%">
   
 ## Project Setup
+#### Run
 ```
 Windows PowerShell 실행 
 ```
@@ -60,11 +61,6 @@ http://localhost:8080/ 접속
 #### Download CORS plugin
 ```
 https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf
-```
-
-### Run
-```
-npm run serve
 ```
 
 ## Play
