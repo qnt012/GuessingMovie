@@ -97,3 +97,10 @@ https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgc
     * 가장 관련도 높은 영화를 좌측 상단에 크게 보여줌
     * ‘↺ Go home’ 영역 클릭 시 시작 화면(Home)으로 돌아감 
 ![캡처](/image/result1.PNG)
+
+
+| 제작자 | E-mail |
+| ------ | ------ |
+| 곽현서 | kwak980319@naver.com |
+| 김보민 | qnt012@naver.com | 
+| 김정민 | dgb980228@naver.com | 
