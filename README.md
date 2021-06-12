@@ -45,18 +45,7 @@ Google 에서 제공하는 낙서 데이터 셋 기반의 Convolutional Neural N
 ```
 npm install              //Node.js로 만들어진 모듈을 웹에서 받아서 설치하고 관리해주는 프로그램
 ```
-```
-npm vue                  //JavaScript 기반의 웹 프레임워크 사용을 지원하는 모듈
-``` 
-```
-npm vue-router           //Props를 통한 데이터 전달과 안정적인 페이지 이동을 지원하는 모듈
-```
-```
-npm @tensorflow/tfjs     //Tensorflow를 javascript 환경에서 사용할 수 있도록 하는 모듈
-```
-```
-npm firebase             //Google firebase를 javascript 환경에서 사용할 수 있도록 하는 모듈
-```
+
 #### Download CORS plugin
 ```
 https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf
