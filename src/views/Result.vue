@@ -8,8 +8,10 @@
     </div>
     </div>
     <div class="result-container">
-      <h2 class="movie-text">{{ count[0][0] }}</h2>
-      <img class="movie" v-bind:src="'http://image.tmdb.org/t/p/w500'+ count[0][1]">
+      <div class="mm">
+        <h2 class="movie-text">{{ count[0][0] }}</h2>
+        <img class="movie" v-bind:src="'http://image.tmdb.org/t/p/w500'+ count[0][1]">
+      </div>
       <div v-for="(movie, index) in count" :key="`movie-${index}`">
         <div v-if="(movie[0] != count[0][0]) && (movie[2] >= words.length - 1)" :id="index" class="ml">
           <div class="el_text">{{movie[0]}}</div>
