@@ -1,6 +1,50 @@
 body {
   background-color: white;
 }
+.candi-container {
+  position: absolute;
+  left: 150px;
+  top: 340px;
+  z-index: 6;
+  padding: 20px;
+  background-color: #ffd139;
+  border-radius: 10px;
+  box-shadow: 5px 5px 5px lightgray;
+  animation-name: big;
+  animation-duration: 500ms;
+  text-align: center;
+}
+.cx {
+  width: max-content;
+  padding: 8px;
+  background-color: white;
+  border-radius: 100px;
+  cursor: pointer;
+}
+.candi {
+  width: 500px;
+  height: 100px;
+  font-size: 40px;
+  padding-top: 20px;
+  margin: 10px;
+  background-color: white;
+  font-family: "Comic Sans MS";
+  overflow: auto;
+  cursor: pointer;
+  :hover {
+    font-size: 50px;
+    padding: 0px;
+  }
+}
+
+@keyframes big {
+  from {
+    height: 0px;
+  }
+  to {
+    height: 635px;
+  }
+}
 .board-wrapper {
   display: grid;
   position: relative;
@@ -57,11 +101,6 @@ body {
 }
 .tools li:first-child {
   border-top-right-radius: 5px;
-}
-#tool-add {
-  margin-top: 350px;
-  border-bottom: 2px solid #abaaaa;
-  border-radius: 5px;
 }
 button.tools-icon-btn {
   cursor: pointer;

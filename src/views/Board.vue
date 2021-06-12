@@ -1,12 +1,18 @@
 <template>
   <div id="board">
     <app-header></app-header>
+    <div v-if="candidates.length" class="candi-container">
+      <div v-if="candidates.length" @click="candidates = []" class="cx"><i class="fas fa-times"></i></div>
+      <div v-for="(candidate, index) in candidates" :key="`candi-${index}`" class="candi">
+        <span @click="newWord(candidate)">{{ candidate }}</span>
+      </div>
+    </div>
     <center>
     <div v-for="(word, index) in words" :key="`word-${index}`" class="word">
       <span>{{ word }}</span>
       <span @click="deleteWord(index)" class="delete"><i class="fas fa-times"></i></span>
     </div>
-    <app-canvas @wordAdded="newWord" @movieGet="getMovie"></app-canvas>
+    <app-canvas @wordAdded="newWord" @movieGet="getMovie" @candiGet="getCandi"></app-canvas>
     <div class="result-btn" v-if="words.length" @click="guess"><div class="eff"></div>Guess Movie!</div>
     </center>
   </div>
@@ -25,7 +31,8 @@ export default {
       movieDB: Object,
       movieKeyword: [],
       count: [],
-      guessed: false
+      guessed: false,
+      candidates: [],
     };
   },
   methods: {
@@ -38,6 +45,7 @@ export default {
         this.words.push(word);
         this.guessed = false;
       }
+      this.candidates = [];
     },
     deleteWord(index) {
       this.words.splice(index, 1);
@@ -68,6 +76,9 @@ export default {
         this.count.push([movieword[i].name,movieword[i].poster_path, 0])
       }
       this.movieDB = movieword;
+    },
+    getCandi(c){
+      this.candidates = c;
     }
   },
   components: {
