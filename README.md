@@ -36,8 +36,7 @@ Google 에서 제공하는 낙서 데이터 셋 기반의 Convolutional Neural N
 * Flatten Layer
     * 2차원 행렬 → 1차원 배열
 * 분류 계층(Fully Connected layer)
-    * 카테고리 수(345)에 비해 부족한 클래스별 학습 이미지 수(6,000) 문제
-    * → Batch Normalization & Dense layer 사이 2번의 Dropout(0.2, 0.5) 적용
+    * 카테고리 수(345)에 비해 부족한 클래스별 학습 이미지 수(6,000) 문제 → Batch Normalization & Dense layer 사이 2번의 Dropout(0.2, 0.5) 적용
 * 
 <img src="/image/ach1.PNG" width="80%" height="80%">
   
